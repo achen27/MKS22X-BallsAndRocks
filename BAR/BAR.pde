@@ -49,8 +49,10 @@ class Ball extends Thing implements Moveable {
     /* ONE PERSON WRITE THIS */
     x += random(5);
     y += random(5);
-    if(x > 800) x = 800;
-    if(y < -1000) y = -1000;
+    if(x > 1000) x = 1000;
+    if(y > 800) y = 800;
+    if(x < 0) x = 0;
+    if(y < 0) y = 0;
   }
 }
 
