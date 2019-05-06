@@ -22,10 +22,14 @@ class Rock extends Thing {
   }
 
   void display() {
-    fill(255,0,0);
-    rect(x-5,y+5,10,10);
-    ellipse(x,y,20,20);
-    rect(x-5,y+15,30,30);
+    //fill(255,0,0);
+    rect(x-5,y+5,10,10); //neck
+    ellipse(x,y,20,20); //head
+    rect(x-10,y+15,20,40); //torso
+    rect(x-20,y+15,10,40,5); //left arm
+    rect(x+10,y+15,10,40,5); //right arm
+    rect(x-10,y+53,10,40,5); //left leg
+    rect(x+1,y+53,10,40,5); //right leg
   }
 }
 
