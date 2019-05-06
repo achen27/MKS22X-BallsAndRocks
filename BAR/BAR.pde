@@ -31,7 +31,30 @@ public class LivingRock extends Rock implements Moveable {
     super(x, y);
   }
   void move() {
-    /* ONE PERSON WRITE THIS */
+    if (Math.random() > 0.5){
+      double xchange = Math.random();
+      if (x + xchange < 1000 && x + xchange > 0){
+        x += xchange;
+      }  
+    }
+    else{
+      double xchange = Math.random();
+      if (x - xchange < 1000 && x - xchange > 0){
+        x -= xchange;
+      }  
+    }
+    if (Math.random() > 0.5){
+      double ychange = Math.random();
+      if (y + ychange < 1000 && y + ychange > 0){
+        y += ychange;
+      }
+    }
+    else{
+      double ychange = Math.random();
+      if (y - ychange < 1000 && y - ychange > 0){
+        y -= ychange;
+      }
+    }  
   }
 }
 
