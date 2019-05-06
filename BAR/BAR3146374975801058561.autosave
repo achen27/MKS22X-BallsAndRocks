@@ -22,10 +22,9 @@ class Rock extends Thing {
   }
 
   void display() {
-    fill(255,0,0);
-    rect(x-5,y+5,10,10);
-    ellipse(x,y,20,20);
-    rect(x-5,y+15,30,30);
+    fill(random(255),random(255),random(255));
+    rect(x-5,y+30,10,10);
+    ellipse(x,y,50,70);
   }
 }
 
@@ -34,30 +33,7 @@ public class LivingRock extends Rock implements Moveable {
     super(x, y);
   }
   void move() {
-    if (Math.random() > 0.5){
-      double xchange = Math.random();
-      if (x + xchange < 1000 && x + xchange > 0){
-        x += xchange;
-      }  
-    }
-    else{
-      double xchange = Math.random();
-      if (x - xchange < 1000 && x - xchange > 0){
-        x -= xchange;
-      }  
-    }
-    if (Math.random() > 0.5){
-      double ychange = Math.random();
-      if (y + ychange < 1000 && y + ychange > 0){
-        y += ychange;
-      }
-    }
-    else{
-      double ychange = Math.random();
-      if (y - ychange < 1000 && y - ychange > 0){
-        y -= ychange;
-      }
-    }  
+    /* ONE PERSON WRITE THIS */
   }
 }
 
