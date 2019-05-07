@@ -66,25 +66,43 @@ public class LivingRock extends Rock implements Moveable {
 }
 
 class Ball extends Thing implements Moveable {
+  float dx;
+  float dy;
   Ball(float x, float y) {
-
+  
     super(x, y);
+    float r = random(5);
+    float theta = random(TWO_PI);
+    dx = r * cos(theta);
+    dy = r * sin(theta);
   }
 
   void display() {
     ellipse(x, y, 50, 50);
-    color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
-    fill(c); //So for now everything's purple :( 
+    //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
+    //fill(c); //So for now everything's purple :( 
   }
 
   void move() {
     /* ONE PERSON WRITE THIS */
-    x += random(5);
-    y += random(5);
-    if(x > 1000) x = 1000;
-    if(y > 800) y = 800;
-    if(x < 0) x = 0;
-    if(y < 0) y = 0;
+    x += dx;
+    y += dy;
+    if(x > 1000){
+      x = 1000;
+      dx = -dx; 
+    }
+    if(y > 800){
+      y = 800;
+      dy = -dy;
+    }
+    if(x < 0){
+      x = 0;
+      dx = -dx;
+    }
+    if(y < 0){
+      y = 0;
+      dy = -dy;
+    }
   }
 }
 
