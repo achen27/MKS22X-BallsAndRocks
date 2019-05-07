@@ -72,7 +72,9 @@ class Ball extends Thing implements Moveable {
   }
 
   void display() {
-    /* ONE PERSON WRITE THIS */
+    ellipse(x, y, 50, 50);
+    color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
+    fill(c); //So for now everything's purple :( 
   }
 
   void move() {
