@@ -20,10 +20,17 @@ abstract class Thing implements Displayable {
 class Rock extends Thing {
   
   PImage rock;
+  float dx;
+  float dy;
+  int mass;
   
   Rock(float x, float y, PImage r) {
     super(x, y);
     rock = r;
+    float ra = random(5);
+    float theta = random(TWO_PI);
+    dx = ra * cos(theta);
+    dy = ra * sin(theta);
   }
 
   void display() {
@@ -36,7 +43,22 @@ public class LivingRock extends Rock implements Moveable {
   LivingRock(float x, float y, PImage r) {
     super(x, y, r);
   }
+<<<<<<< HEAD
   void move() {/*
+=======
+  
+  void display() {
+    super.display();
+    ellipse(x+5,y+5,10,10);
+    ellipse(x+25,y+5,10,10);
+    fill(0);
+    ellipse(x+5,y+5,5,5);
+    ellipse(x+25,y+5,5,5);
+    fill(255);
+  }
+  
+  void move() {
+>>>>>>> 356210c0d77b7ac3209940c4482a6e4f195fb123
     if (Math.random() > 0.5){
       double xchange = Math.random();
       if (x + xchange < 1000 && x + xchange > 0){
