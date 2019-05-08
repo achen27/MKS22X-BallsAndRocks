@@ -16,24 +16,21 @@ abstract class Thing implements Displayable {
   abstract void display();
 }
 
-
 class Rock extends Thing {
-  
   PImage rock;
-  
   Rock(float x, float y, PImage r) {
     super(x, y);
     rock = r;
   }
 
   void display() {
-    image(rock,x,y,30,20);
+    image(rock,x,y,50,30);
   }
 }
 
 public class LivingRock extends Rock implements Moveable {
   LivingRock(float x, float y, PImage r) {
-    super(x, y, r);
+    super(x, y,r);
   }
   void move() {
     if (Math.random() > 0.5){
@@ -64,43 +61,25 @@ public class LivingRock extends Rock implements Moveable {
 }
 
 class Ball extends Thing implements Moveable {
-  float dx;
-  float dy;
   Ball(float x, float y) {
-  
+
     super(x, y);
-    float r = random(5);
-    float theta = random(TWO_PI);
-    dx = r * cos(theta);
-    dy = r * sin(theta);
   }
 
   void display() {
     ellipse(x, y, 50, 50);
-    //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
-    //fill(c); //So for now everything's purple :( 
+    color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
+    fill(c); //So for now everything's purple :( 
   }
 
   void move() {
     /* ONE PERSON WRITE THIS */
-    x += dx;
-    y += dy;
-    if(x > 1000){
-      x = 1000;
-      dx = -dx; 
-    }
-    if(y > 800){
-      y = 800;
-      dy = -dy;
-    }
-    if(x < 0){
-      x = 0;
-      dx = -dx;
-    }
-    if(y < 0){
-      y = 0;
-      dy = -dy;
-    }
+    x += random(5);
+    y += random(5);
+    if(x > 1000) x = 1000;
+    if(y > 800) y = 800;
+    if(x < 0) x = 0;
+    if(y < 0) y = 0;
   }
 }
 
@@ -112,35 +91,25 @@ ArrayList<Moveable> thingsToMove;
 void setup() {
   size(1000, 800);
   PImage rock;
-  //rock = loadImage("rock1.jpg");
+  if(Math.random() > 0.5){
+    rock = loadImage("rock1.jpg");
+  } else {
+    rock = loadImage("rock2.png");
+  }
+  
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
   for (int i = 0; i < 10; i++) {
     Ball b = new Ball(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(b);
     thingsToMove.add(b);
-    if(Math.random() > .5){
-      rock = loadImage("rock1.jpg");
-      Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
-      thingsToDisplay.add(r);
-    } else {
-      rock = loadImage("rock2.png");
-      Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
-      thingsToDisplay.add(r);
-    }
+    Rock r = new Rock(50+random(width-100), 50+random(height-100), rock);
+    thingsToDisplay.add(r);
   }
   for (int i = 0; i < 3; i++) {
-    if(Math.random() > .5){
-      rock = loadImage("rock1.jpg");
-      LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100),rock);
-      thingsToDisplay.add(m);
-      thingsToMove.add(m);
-    } else {
-      rock = loadImage("rock2.png");
-      LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100),rock);
-      thingsToDisplay.add(m);
-      thingsToMove.add(m);
-    }
+    LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100), rock);
+    thingsToDisplay.add(m);
+    thingsToMove.add(m);
   }
 }
 void draw() {
