@@ -20,14 +20,21 @@ abstract class Thing implements Displayable {
 class Rock extends Thing {
   
   PImage rock;
+  float dx;
+  float dy;
+  int mass;
   
   Rock(float x, float y, PImage r) {
     super(x, y);
     rock = r;
+    float ra = random(5);
+    float theta = random(TWO_PI);
+    dx = ra * cos(theta);
+    dy = ra * sin(theta);
   }
 
   void display() {
-    image(rock,x,y,30,20);
+    image(rock,x,y,50,30);
   }
 }
 
