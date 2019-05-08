@@ -10,7 +10,7 @@ interface Collidable{
   boolean isTouching(Thing other);
 }
 
-abstract class Thing implements Displayable implements Collidable{
+abstract class Thing implements Displayable, Collidable{
   float x, y;//Position of the Thing
 
   Thing(float x, float y) {
@@ -41,13 +41,17 @@ class Rock extends Thing {
   void display() {
     image(rock,x,y,50,30);
   }
+  
+  boolean isTouching(Thing other){
+    return true;
+  }
 }
 
 public class LivingRock extends Rock implements Moveable {
-  float t = 0;
   LivingRock(float x, float y, PImage r) {
     super(x, y, r);
   }
+  
   void display() {
     super.display();
     ellipse(x+5,y+5,10,10);
@@ -57,7 +61,8 @@ public class LivingRock extends Rock implements Moveable {
     ellipse(x+25,y+5,5,5);
     fill(255);
   }
-  void move() {/*
+  
+  void move() {
     if (Math.random() > 0.5){
       double xchange = Math.random();
       if (x + xchange < 1000 && x + xchange > 0){
@@ -81,14 +86,7 @@ public class LivingRock extends Rock implements Moveable {
       if (y - ychange < 1000 && y - ychange > 0){
         y -= ychange;
       }
-    }  */
-    if (x + Math.cos(t) < 950 && x + Math.cos(t) > 50){  
-      x += 1 * Math.cos(t);
-    } 
-    if (y + 1 * Math.sin(t) < 750 && y + Math.sin(t) > 50){
-      y += 1 * Math.sin(t);
-    }
-    t += 0.01;
+    }  
   }
 }
 
