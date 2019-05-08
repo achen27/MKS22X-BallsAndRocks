@@ -7,7 +7,7 @@ interface Moveable {
 }
 
 interface Collidable{
-  boolean isTouching(Thing other);
+  //boolean isTouching(Thing other);
 }
 
 abstract class Thing implements Displayable, Collidable{
@@ -18,7 +18,7 @@ abstract class Thing implements Displayable, Collidable{
     this.y = y;
   }
   abstract void display();
-  abstract boolean isTouching(Thing other);
+  //abstract boolean isTouching(Thing other);
 }
 
 
@@ -132,6 +132,14 @@ class Ball extends Thing implements Moveable {
       y = 0;
       dy = -dy;
     }
+  }
+}
+
+class Smallball extends Ball{
+  void display() {
+    ellipse(x, y, 50 / (pow(2, 1 / 3)), 50 / (pow(2, 1 / 3)));
+    //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
+    //fill(c); //So for now everything's purple :( 
   }
 }
 
