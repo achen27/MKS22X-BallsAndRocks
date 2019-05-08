@@ -35,6 +35,13 @@ public class LivingRock extends Rock implements Moveable {
   LivingRock(float x, float y, PImage r) {
     super(x, y, r);
   }
+  
+  void display() {
+    super.display();
+    ellipse(x,y,10,10);
+    ellipse(x+20,y,10,10);
+  }
+  
   void move() {
     if (Math.random() > 0.5){
       double xchange = Math.random();
