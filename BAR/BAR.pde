@@ -103,6 +103,10 @@ class Ball extends Thing implements Moveable {
     //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
     //fill(c); //So for now everything's purple :( 
   }
+  
+  boolean isTouching(Thing other){
+    return sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y)*(this.y - other.y)) == 100;
+  }
 
   void move() {
     /* ONE PERSON WRITE THIS */
