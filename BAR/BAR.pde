@@ -6,7 +6,11 @@ interface Moveable {
   void move();
 }
 
-abstract class Thing implements Displayable {
+interface Collidable{
+  boolean isTouching(Thing other);
+}
+
+abstract class Thing implements Displayable implements Collidable{
   float x, y;//Position of the Thing
 
   Thing(float x, float y) {
@@ -14,6 +18,7 @@ abstract class Thing implements Displayable {
     this.y = y;
   }
   abstract void display();
+  abstract boolean isTouching(Thing other);
 }
 
 
