@@ -27,15 +27,16 @@ class Rock extends Thing {
   }
 
   void display() {
-    image(rock,x,y,30,20);
+    image(rock,x,y,50,30);
   }
 }
 
 public class LivingRock extends Rock implements Moveable {
+  float t = 0;
   LivingRock(float x, float y, PImage r) {
     super(x, y, r);
   }
-  void move() {
+  void move() {/*
     if (Math.random() > 0.5){
       double xchange = Math.random();
       if (x + xchange < 1000 && x + xchange > 0){
@@ -59,7 +60,14 @@ public class LivingRock extends Rock implements Moveable {
       if (y - ychange < 1000 && y - ychange > 0){
         y -= ychange;
       }
-    }  
+    }  */
+    if (x + Math.cos(t) < 950 && x + Math.cos(t) > 50){  
+      x += 1 * Math.cos(t);
+    } 
+    if (y + 1 * Math.sin(t) < 750 && y + Math.sin(t) > 50){
+      y += 1 * Math.sin(t);
+    }
+    t += 0.01;
   }
 }
 
