@@ -6,7 +6,11 @@ interface Moveable {
   void move();
 }
 
-abstract class Thing implements Displayable {
+interface Collidable{
+  boolean isTouching(Thing other);
+}
+
+abstract class Thing implements Displayable implements Collidable{
   float x, y;//Position of the Thing
 
   Thing(float x, float y) {
@@ -14,6 +18,7 @@ abstract class Thing implements Displayable {
     this.y = y;
   }
   abstract void display();
+  abstract boolean isTouching(Thing other);
 }
 
 
@@ -109,6 +114,10 @@ class Ball extends Thing implements Moveable {
     ellipse(x, y, 50, 50);
     //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
     //fill(c); //So for now everything's purple :( 
+  }
+  
+  boolean isTouching(Thing other){
+    return sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y)*(this.y - other.y)) == 100;
   }
 
   void move() {
