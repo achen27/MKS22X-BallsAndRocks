@@ -1,13 +1,17 @@
 # MKS22X-BallsAndRocks
 
-Sam Rosenstrauch
-  - void move() for Ball
-  
-Amanda Chen
-  - void display() for Rock
+05/06
+Balls:
+Display - Mir
+Move - Sam
 
-Mir Islam
-  - void display() for Ball
+Rocks:
+Display - Amanda
+Move - Michael
 
-Michael Chan
-  - void move() for LivingRock
+05/07
+Balls:
+Mir & Sam
+
+Rocks:
+Amanda & Michael
