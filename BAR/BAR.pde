@@ -6,19 +6,24 @@ interface Moveable {
   void move();
 }
 
-interface Collidable{
-  //boolean isTouching(Thing other);
+interface Collideable{
+  boolean isTouching(Thing other);
 }
 
-abstract class Thing implements Displayable, Collidable{
+abstract class Thing implements Displayable, Collideable{
   float x, y;//Position of the Thing
+  float dx, dy;
 
   Thing(float x, float y) {
     this.x = x;
     this.y = y;
+    this.dx = 0;
+    this.dy = 0;
   }
   abstract void display();
-  //abstract boolean isTouching(Thing other);
+  abstract boolean isTouching(Thing other);
+  abstract void bounce();
+  abstract void changeColor();
 }
 
 
@@ -42,8 +47,16 @@ class Rock extends Thing {
     image(rock,x,y,50,30);
   }
   
+  void bounce(){
+    return;
+  }
+  
   boolean isTouching(Thing other){
     return true;
+  }
+  
+  void changeColor(){
+    return;
   }
 }
 
@@ -86,7 +99,7 @@ public class LivingRock extends Rock implements Moveable {
       if (y - ychange < 1000 && y - ychange > 0){
         y -= ychange;
       }
-    }  
+    }
   }
 }
 
@@ -101,6 +114,10 @@ class Ball extends Thing implements Moveable {
     dx = r * cos(theta);
     dy = r * sin(theta);
   }
+  
+  void changeColor(){
+    return;
+  }
 
   void display() {
     ellipse(x, y, 50, 50);
@@ -109,7 +126,7 @@ class Ball extends Thing implements Moveable {
   }
   
   boolean isTouching(Thing other){
-    return sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y)*(this.y - other.y)) == 100;
+    return sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y)*(this.y - other.y)) <= 40;
   }
 
   void move() {
@@ -133,13 +150,46 @@ class Ball extends Thing implements Moveable {
       dy = -dy;
     }
   }
+  void bounce(){
+    dx *= -1;
+    dy *= -1;
+  }
 }
 
 class Smallball extends Ball{
+  Smallball(float x, float y){
+    super(x,y);
+    float r = random(5) + 5;
+    float theta = random(TWO_PI);
+    dx = r * cos(theta);
+    dy = r * sin(theta);
+  }
   void display() {
-    ellipse(x, y, 50 / (pow(2, 1 / 3)), 50 / (pow(2, 1 / 3)));
-    //color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
-    //fill(c); //So for now everything's purple :( 
+    ellipse(x, y, 25, 25);
+    color c = color(152, 16, 100); //I don't know how to make only the balls colored yet
+    fill(c); //So for now everything's purple :( 
+  }
+  void changeColor(){
+    ellipse(x,y,50,50);
+    fill(0, 126, 255);
+  }
+}
+
+class Bigball extends Ball{
+  Bigball(float x, float y){
+    super(x,y);
+  }
+  void display() {
+    ellipse(x, y, 50, 50);
+    color c = color(255, 204, 0); //I don't know how to make only the balls colored yet
+    fill(c); //So for now everything's purple :( 
+  }
+  
+  void changeColor(){
+    ellipse(x, y, 50, 50);
+    fill(0,255,0);
+    
+    
   }
 }
 
@@ -147,6 +197,7 @@ class Smallball extends Ball{
 
 ArrayList<Displayable> thingsToDisplay;
 ArrayList<Moveable> thingsToMove;
+ArrayList<Collideable> listOfCollideables;
 
 void setup() {
   size(1000, 800);
@@ -154,18 +205,39 @@ void setup() {
   //rock = loadImage("rock1.jpg");
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
-  for (int i = 0; i < 10; i++) {
-    Ball b = new Ball(50+random(width-100), 50+random(height-100));
+  listOfCollideables = new ArrayList<Collideable>();
+  for (int i = 0; i < 5; i++) {
+    Smallball b = new Smallball(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(b);
     thingsToMove.add(b);
+    listOfCollideables.add(b);
     if(Math.random() > .5){
       rock = loadImage("rock1.jpg");
       Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
       thingsToDisplay.add(r);
+      listOfCollideables.add(r);
     } else {
       rock = loadImage("rock2.png");
       Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
       thingsToDisplay.add(r);
+      listOfCollideables.add(r);
+    }
+  }
+  for (int i = 0; i < 5; i++) {
+    Bigball b = new Bigball(50+random(width-100), 50+random(height-100));
+    thingsToDisplay.add(b);
+    thingsToMove.add(b);
+    listOfCollideables.add(b);
+    if(Math.random() > .5){
+      rock = loadImage("rock1.jpg");
+      Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
+      thingsToDisplay.add(r);
+      listOfCollideables.add(r);
+    } else {
+      rock = loadImage("rock2.png");
+      Rock r = new Rock(50+random(width-100), 50+random(height-100),rock);
+      thingsToDisplay.add(r);
+      listOfCollideables.add(r);
     }
   }
   for (int i = 0; i < 3; i++) {
@@ -174,11 +246,13 @@ void setup() {
       LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100),rock);
       thingsToDisplay.add(m);
       thingsToMove.add(m);
+      listOfCollideables.add(m);
     } else {
       rock = loadImage("rock2.png");
       LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100),rock);
       thingsToDisplay.add(m);
       thingsToMove.add(m);
+      listOfCollideables.add(m);
     }
   }
 }
@@ -190,5 +264,13 @@ void draw() {
   }
   for (Moveable thing : thingsToMove) {
     thing.move();
+    for( Collideable c : listOfCollideables) {
+     if ( c.isTouching((Thing) thing) && !c.equals(thing)){
+        ((Thing) c).bounce();
+        ((Thing) c).changeColor();
+      }
+    }
   }
+  
+  
 }
